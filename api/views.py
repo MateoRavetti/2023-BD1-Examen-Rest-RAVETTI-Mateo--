@@ -119,7 +119,7 @@ def getCategoryById(request, pk):
     except Exception:
         return Response(status=status.HTTP_204_NO_CONTENT)
     if request.method == 'GET':
-        serializer = CategorieSerializer(supplier)
+        serializer = CategorieSerializer(Categories)
         return Response(serializer.data, status=status.HTTP_200_OK)
     if request.method == 'PUT':
         request.data['categoryid'] = pk
