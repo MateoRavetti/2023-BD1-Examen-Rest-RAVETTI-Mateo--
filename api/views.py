@@ -24,13 +24,11 @@ def getRoutes(request):
                }]
     return Response(routes)
 
-# --- COSTUMERS ------------------------------------------------------------------------------------
+#COSTUMERS 
 @api_view(["GET", "POST"])
 def getAllCustomers(request):
     if request.method == "GET":
         customers = Customers.objects.all()       
-        #customers = Customers.objects.filter(contactname__startswith = 'M').order_by('contacttitle')[:4]
-        #customers = Customers.objects.filter(contactname__startswith = 'A', contacttitle = 'Owner')
         customersSerializers = CustomerSerializer(customers, many=True)
         return Response(customersSerializers.data, status=status.HTTP_200_OK)
     elif request.method == "POST":
@@ -63,7 +61,7 @@ def getCustomerById(request, pk):
         customer.delete()
         return Response(status=status.HTTP_200_OK)
 
-# --- SUPPLIERS ------------------------------------------------------------------------------------
+#SUPPLIERS
 @api_view(["GET", "POST"])
 def getAllSuppliers(request):
     if request.method == "GET":         
@@ -98,7 +96,7 @@ def getSupplierById(request, pk):
         supplier.delete()
         return Response(status=status.HTTP_200_OK)
 
-# --- CATEGORIES ------------------------------------------------------------------------------------
+#CATEGORIES
 @api_view(["GET", "POST"])
 def getAllCategories(request):
     if request.method == "GET":         
@@ -133,7 +131,7 @@ def getCategoryById(request, pk):
         categorie.delete()
         return Response(status=status.HTTP_200_OK)
 
-# --- PRODUCTS ------------------------------------------------------------------------------------
+#PRODUCTS 
 @api_view(["GET", "POST"])
 def getAllProducts(request):
     if request.method == "GET":
@@ -171,7 +169,7 @@ def getProductById(request, pk):
         product.delete()
         return Response(status=status.HTTP_200_OK)
 
-# --- ORDERS ------------------------------------------------------------------------------------
+#ORDERS
 
 @api_view(["GET", "POST"])
 def getAllOrders(request):
@@ -209,8 +207,7 @@ def getOrderById(request, pk):
         order.delete()
         return Response(status=status.HTTP_200_OK)
 
-# --- ORDER_DETAILS ------------------------------------------------------------------------------------
-
+#ORDER_DETAILS 
 @api_view(["GET", "POST"])
 def getAllOrderDetails(request):
     if request.method == "GET":         
@@ -247,7 +244,7 @@ def getOrderDetailById(request, pk):
         order_detail.delete()
         return Response(status=status.HTTP_200_OK)
 
-# --- EMPLOYEES ------------------------------------------------------------------------------------
+# EMPLOYEES 
 
 @api_view(["GET", "POST"])
 def getAllEmployees(request):
