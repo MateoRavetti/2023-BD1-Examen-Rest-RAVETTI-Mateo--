@@ -23,7 +23,9 @@ urlpatterns = [
     path("employee/", getAllEmployees, name="getAllEmployees"),
     path("employee/<str:pk>/", getEmployeeById, name="getEmployeeById"),
 
-    #pruebas
-    path('examen/punto1', punto1),
-    path('examen/fecha', getOrderByDate),
+    path("get_Employees/", get_Employees, name="get_Employees"),
+
+    path("update_products/", update_products, name="update_products")
+
+
 ]

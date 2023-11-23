@@ -46,8 +46,23 @@ class EmployeeSerializer (SerializadorPadre):
       model = Employees
       fields = '__all__'
 
-class Punto1Serializer(serializers.Serializer):
-    id = serializers.CharField(max_length=5)
-    nombre = serializers.CharField(max_length=50)
-    nombre_compañia = serializers.CharField(max_length=50)
-    telefono = serializers.CharField(max_length=20)
+
+class EmployeesSerializer(serializers.ModelSerializer):
+    NombreCompleto = serializers.CharField(source='full_name', read_only=True)
+    class Meta:
+        model = Employees
+        fields = ['EmployeeID', 'NombreCompleto', 'GananciasTotales', 'HireDate']
+
+
+
+
+class ProductUpdateSerializer(serializers.ModelSerializer):
+    Category = CategorieSerializer(read_only=True)
+    PreviousPrice = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Products
+        fields = ['ProductID', 'Category', 'PreviousPrice', 'PercentageIncrease']  # Agrega más campos según sea necesario
+
+    def get_PreviousPrice(self, obj):
+        return obj.unitprice / (1 + obj.aumento)

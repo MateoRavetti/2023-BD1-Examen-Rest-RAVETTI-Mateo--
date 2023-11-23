@@ -20,8 +20,8 @@ class Categories(models.Model):
 
 
 class Customercustomerdemo(models.Model):
-    customerid = models.OneToOneField('Customers', models.DO_NOTHING, db_column='CustomerID', primary_key=True)  # Field name made lowercase. The composite primary key (CustomerID, CustomerTypeID) found, that is not supported. The first column is selected.
-    customertypeid = models.ForeignKey('Customerdemographics', models.DO_NOTHING, db_column='CustomerTypeID')  # Field name made lowercase.
+    customerid = models.OneToOneField('Customers', models.CASCADE, db_column='CustomerID', primary_key=True)  # Field name made lowercase. The composite primary key (CustomerID, CustomerTypeID) found, that is not supported. The first column is selected.
+    customertypeid = models.ForeignKey('Customerdemographics', models.CASCADE, db_column='CustomerTypeID')  # Field name made lowercase.
 
     class Meta:
         managed = False
@@ -63,8 +63,8 @@ class Customers(models.Model):
 
 
 class Employeeterritories(models.Model):
-    employeeid = models.OneToOneField('Employees', models.DO_NOTHING, db_column='EmployeeID', primary_key=True)  # Field name made lowercase. The composite primary key (EmployeeID, TerritoryID) found, that is not supported. The first column is selected.
-    territoryid = models.ForeignKey('Territories', models.DO_NOTHING, db_column='TerritoryID')  # Field name made lowercase.
+    employeeid = models.OneToOneField('Employees', models.CASCADE, db_column='EmployeeID', primary_key=True)  # Field name made lowercase. The composite primary key (EmployeeID, TerritoryID) found, that is not supported. The first column is selected.
+    territoryid = models.ForeignKey('Territories', models.CASCADE, db_column='TerritoryID')  # Field name made lowercase.
 
     class Meta:
         managed = False
@@ -89,7 +89,7 @@ class Employees(models.Model):
     extension = models.CharField(db_column='Extension', max_length=4, blank=True, null=True)  # Field name made lowercase.
     photo = models.TextField(db_column='Photo', blank=True, null=True)  # Field name made lowercase.
     notes = models.TextField(db_column='Notes')  # Field name made lowercase.
-    reportsto = models.ForeignKey('self', models.DO_NOTHING, db_column='ReportsTo', blank=True, null=True)  # Field name made lowercase.
+    reportsto = models.ForeignKey('self', models.CASCADE, db_column='ReportsTo', blank=True, null=True)  # Field name made lowercase.
     photopath = models.CharField(db_column='PhotoPath', max_length=255, blank=True, null=True)  # Field name made lowercase.
     salary = models.FloatField(db_column='Salary', blank=True, null=True)  # Field name made lowercase.
 
@@ -102,8 +102,8 @@ class Employees(models.Model):
 
 
 class Orderdetails(models.Model):
-    orderid = models.OneToOneField('Orders', models.DO_NOTHING, db_column='OrderID', primary_key=True)  # Field name made lowercase. The composite primary key (OrderID, ProductID) found, that is not supported. The first column is selected.
-    productid = models.ForeignKey('Products', models.DO_NOTHING, db_column='ProductID')  # Field name made lowercase.
+    orderid = models.OneToOneField('Orders', models.CASCADE, db_column='OrderID', primary_key=True)  # Field name made lowercase. The composite primary key (OrderID, ProductID) found, that is not supported. The first column is selected.
+    productid = models.ForeignKey('Products', models.CASCADE, db_column='ProductID')  # Field name made lowercase.
     unitprice = models.DecimalField(db_column='UnitPrice', max_digits=10, decimal_places=4)  # Field name made lowercase.
     quantity = models.SmallIntegerField(db_column='Quantity')  # Field name made lowercase.
     discount = models.FloatField(db_column='Discount')  # Field name made lowercase.
@@ -116,12 +116,12 @@ class Orderdetails(models.Model):
 
 class Orders(models.Model):
     orderid = models.AutoField(db_column='OrderID', primary_key=True)  # Field name made lowercase.
-    customerid = models.ForeignKey(Customers, models.DO_NOTHING, db_column='CustomerID', blank=True, null=True)  # Field name made lowercase.
-    employeeid = models.ForeignKey(Employees, models.DO_NOTHING, db_column='EmployeeID', blank=True, null=True)  # Field name made lowercase.
+    customerid = models.ForeignKey(Customers, models.CASCADE, db_column='CustomerID', blank=True, null=True)  # Field name made lowercase.
+    employeeid = models.ForeignKey(Employees, models.CASCADE, db_column='EmployeeID', blank=True, null=True)  # Field name made lowercase.
     orderdate = models.DateTimeField(db_column='OrderDate', blank=True, null=True)  # Field name made lowercase.
     requireddate = models.DateTimeField(db_column='RequiredDate', blank=True, null=True)  # Field name made lowercase.
     shippeddate = models.DateTimeField(db_column='ShippedDate', blank=True, null=True)  # Field name made lowercase.
-    shipvia = models.ForeignKey('Shippers', models.DO_NOTHING, db_column='ShipVia', blank=True, null=True)  # Field name made lowercase.
+    shipvia = models.ForeignKey('Shippers', models.CASCADE, db_column='ShipVia', blank=True, null=True)  # Field name made lowercase.
     freight = models.DecimalField(db_column='Freight', max_digits=10, decimal_places=4, blank=True, null=True)  # Field name made lowercase.
     shipname = models.CharField(db_column='ShipName', max_length=40, blank=True, null=True)  # Field name made lowercase.
     shipaddress = models.CharField(db_column='ShipAddress', max_length=60, blank=True, null=True)  # Field name made lowercase.
@@ -138,8 +138,8 @@ class Orders(models.Model):
 class Products(models.Model):
     productid = models.AutoField(db_column='ProductID', primary_key=True)  # Field name made lowercase.
     productname = models.CharField(db_column='ProductName', max_length=40)  # Field name made lowercase.
-    supplierid = models.ForeignKey('Suppliers', models.DO_NOTHING, db_column='SupplierID', blank=True, null=True)  # Field name made lowercase.
-    categoryid = models.ForeignKey(Categories, models.DO_NOTHING, db_column='CategoryID', blank=True, null=True)  # Field name made lowercase.
+    supplierid = models.ForeignKey('Suppliers', models.CASCADE, db_column='SupplierID', blank=True, null=True)  # Field name made lowercase.
+    categoryid = models.ForeignKey(Categories, models.CASCADE, db_column='CategoryID', blank=True, null=True)  # Field name made lowercase.
     quantityperunit = models.CharField(db_column='QuantityPerUnit', max_length=20, blank=True, null=True)  # Field name made lowercase.
     unitprice = models.DecimalField(db_column='UnitPrice', max_digits=10, decimal_places=4, blank=True, null=True)  # Field name made lowercase.
     unitsinstock = models.SmallIntegerField(db_column='UnitsInStock', blank=True, null=True)  # Field name made lowercase.
@@ -193,7 +193,7 @@ class Suppliers(models.Model):
 class Territories(models.Model):
     territoryid = models.CharField(db_column='TerritoryID', primary_key=True, max_length=20)  # Field name made lowercase.
     territorydescription = models.CharField(db_column='TerritoryDescription', max_length=50)  # Field name made lowercase.
-    regionid = models.ForeignKey(Region, models.DO_NOTHING, db_column='RegionID')  # Field name made lowercase.
+    regionid = models.ForeignKey(Region, models.CASCADE, db_column='RegionID')  # Field name made lowercase.
 
     class Meta:
         managed = False
@@ -210,8 +210,8 @@ class AuthGroup(models.Model):
 
 class AuthGroupPermissions(models.Model):
     id = models.BigAutoField(primary_key=True)
-    group = models.ForeignKey(AuthGroup, models.DO_NOTHING)
-    permission = models.ForeignKey('AuthPermission', models.DO_NOTHING)
+    group = models.ForeignKey(AuthGroup, models.CASCADE)
+    permission = models.ForeignKey('AuthPermission', models.CASCADE)
 
     class Meta:
         managed = False
@@ -221,7 +221,7 @@ class AuthGroupPermissions(models.Model):
 
 class AuthPermission(models.Model):
     name = models.CharField(max_length=255)
-    content_type = models.ForeignKey('DjangoContentType', models.DO_NOTHING)
+    content_type = models.ForeignKey('DjangoContentType', models.CASCADE)
     codename = models.CharField(max_length=100)
 
     class Meta:
@@ -249,8 +249,8 @@ class AuthUser(models.Model):
 
 class AuthUserGroups(models.Model):
     id = models.BigAutoField(primary_key=True)
-    user = models.ForeignKey(AuthUser, models.DO_NOTHING)
-    group = models.ForeignKey(AuthGroup, models.DO_NOTHING)
+    user = models.ForeignKey(AuthUser, models.CASCADE)
+    group = models.ForeignKey(AuthGroup, models.CASCADE)
 
     class Meta:
         managed = False
@@ -260,8 +260,8 @@ class AuthUserGroups(models.Model):
 
 class AuthUserUserPermissions(models.Model):
     id = models.BigAutoField(primary_key=True)
-    user = models.ForeignKey(AuthUser, models.DO_NOTHING)
-    permission = models.ForeignKey(AuthPermission, models.DO_NOTHING)
+    user = models.ForeignKey(AuthUser, models.CASCADE)
+    permission = models.ForeignKey(AuthPermission, models.CASCADE)
 
     class Meta:
         managed = False
@@ -275,8 +275,8 @@ class DjangoAdminLog(models.Model):
     object_repr = models.CharField(max_length=200)
     action_flag = models.PositiveSmallIntegerField()
     change_message = models.TextField()
-    content_type = models.ForeignKey('DjangoContentType', models.DO_NOTHING, blank=True, null=True)
-    user = models.ForeignKey(AuthUser, models.DO_NOTHING)
+    content_type = models.ForeignKey('DjangoContentType', models.CASCADE, blank=True, null=True)
+    user = models.ForeignKey(AuthUser, models.CASCADE)
 
     class Meta:
         managed = False
